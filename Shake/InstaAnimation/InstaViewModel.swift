@@ -23,14 +23,14 @@ class InstaViewModel {
     }
 
     func nextStory() {
-        guard let user = currentUser, userIndex + 1 < user.stories.count else { return }
+        guard let user = currentUser, indexStory + 1 < user.stories.count else { return }
 
         indexStory += 1
         currentStory = user.stories[indexStory].imageURL
     }
 
     func previousStory() {
-        guard let user = currentUser, userIndex - 1 < user.stories.count else { return }
+        guard let user = currentUser, indexStory - 1 >= 0 else { return }
 
         indexStory -= 1
         currentStory = user.stories[indexStory].imageURL

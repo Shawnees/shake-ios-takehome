@@ -64,16 +64,6 @@ class InstaViewController: UIViewController, UIScrollViewDelegate {
     }
 
     func setupBindings() {
-//        viewModel.$userIndex
-//            .dropFirst()
-//            .sink { [weak self] in
-//                guard let self else { return }
-//                let url = viewModel.users[$0].stories.first?.imageURL
-//                let imageView = self.cubeView[self.index]
-//                imageView.updateImage(url: url)
-//            }
-//            .store(in: &cancelBag)
-
         viewModel.$currentStory
             .dropFirst()
             .sink { [weak self] in
@@ -97,7 +87,7 @@ class InstaViewController: UIViewController, UIScrollViewDelegate {
         return imageView
     }
 
-    func turnCarousel(_ duration: CFTimeInterval = 0) {
+    func turnCarousel() {
         //try view
         let segmentForView = 2*CGFloat.pi / CGFloat(Constants.facesCount)
         var angleOffset = currentAngle
@@ -110,7 +100,6 @@ class InstaViewController: UIViewController, UIScrollViewDelegate {
             var transform = CATransform3DIdentity
             transform = CATransform3DRotate(transform, angleOffset, 0, 1, 0)
             transform = CATransform3DTranslate(transform, 0, 0, size.width / 2)
-            CATransaction.setAnimationDuration(duration)
             view.layer.transform = transform
 
             angleOffset += segmentForView
@@ -125,7 +114,7 @@ class InstaViewController: UIViewController, UIScrollViewDelegate {
         let xDiff = xOffset * 0.005 - currentOffset
         currentOffset += xDiff
         currentAngle += xDiff
-
+print(currentAngle)
         if (index == 0 && currentAngle > 0)
             || (index == Constants.facesCount - 1 && currentAngle < 0) {
             return
@@ -208,7 +197,7 @@ private extension InstaViewController {
             }
         }
         UIView.animate(withDuration: 0.3, delay: 0) {
-            self.turnCarousel(1)
+            self.turnCarousel()
         }
     }
 }
