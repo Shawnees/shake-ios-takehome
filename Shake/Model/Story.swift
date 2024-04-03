@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Story: Decodable {
+struct Story: Decodable, Hashable {
     let imageURL: String?
     let videoURL: String?
     let uploadedAt: String
